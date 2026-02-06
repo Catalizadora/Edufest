@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innovar Hoy — Luciana García Agrícola · EduFest 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f0630;
+  --bg2:#1a0a45;
+  --purple:#2d1b69;
+  --gold:#dba13a;
+  --gold-l:#f5c842;
+  --cyan:#38d6d2;
+  --coral:#e8505b;
+  --magenta:#c44bbb;
+  --green:#4ecdc4;
+  --white:#ffffff;
+  --w90:rgba(255,255,255,.90);
+  --w70:rgba(255,255,255,.70);
+  --w50:rgba(255,255,255,.50);
+  --w30:rgba(255,255,255,.30);
+  --w15:rgba(255,255,255,.15);
+  --w08:rgba(255,255,255,.08);
+  --w04:rgba(255,255,255,.04);
+  --head:'Playfair Display',Georgia,serif;
+  --body:'DM Sans',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+html{font-size:16px}
+body{
+  background:var(--bg);color:var(--white);
+  font-family:var(--body);overflow:hidden;
+  height:100vh;width:100vw;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Progress */
+#pr{position:fixed;top:0;left:0;height:3px;z-index:9999;background:linear-gradient(90deg,var(--gold),var(--gold-l));transition:width .5s cubic-bezier(.16,1,.3,1)}
+
+/* Script cue */
+#cue{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:12px 28px;background:rgba(8,3,25,.95);border-top:1px solid var(--w08);font:400 .62rem/1.6 var(--mono);color:var(--w30);letter-spacing:.3px}
+#cue b{color:var(--gold);font-weight:500}
+
+/* Counter */
+#ct{position:fixed;top:18px;right:24px;z-index:9999;font:400 .6rem var(--mono);color:var(--w15);letter-spacing:3px}
+
+/* Slides */
+.D{width:100vw;height:100vh;position:relative}
+.S{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:48px 72px 85px;
+  opacity:0;visibility:hidden;
+  transition:opacity .85s ease;
+  overflow:hidden;
+  background:linear-gradient(145deg,var(--bg) 0%,var(--bg2) 50%,var(--purple) 100%);
+}
+.S.on{opacity:1;visibility:visible}
+.I{max-width:980px;width:100%;position:relative;z-index:2}
+
+/* Glow decorations */
+.glow{position:absolute;border-radius:50%;pointer-events:none;z-index:1;filter:blur(100px);opacity:.2}
+
+/* Reveal */
+.v{opacity:0;transform:translateY(35px);transition:all .75s cubic-bezier(.16,1,.3,1)}
+.vl{opacity:0;transform:translateX(-40px);transition:all .75s cubic-bezier(.16,1,.3,1)}
+.vs{opacity:0;transform:scale(.8);transition:all .95s cubic-bezier(.34,1.56,.64,1)}
+.S.on .v,.S.on .vl,.S.on .vs{opacity:1;transform:translate(0) scale(1)}
+.d1{transition-delay:.05s!important}.d2{transition-delay:.18s!important}
+.d3{transition-delay:.32s!important}.d4{transition-delay:.48s!important}
+.d5{transition-delay:.62s!important}.d6{transition-delay:.78s!important}
+
+/* Typography */
+.hero{font:700 clamp(2.5rem,6.5vw,5.5rem)/1.05 var(--head)}
+.big{font:600 clamp(1.8rem,4vw,3.2rem)/1.15 var(--head)}
+.mid{font:500 clamp(1.2rem,2.2vw,1.8rem)/1.35 var(--head)}
+.sm{font:400 clamp(.95rem,1.4vw,1.1rem)/1.75 var(--body);color:var(--w50)}
+.tag{font:500 .58rem var(--mono);letter-spacing:4px;text-transform:uppercase;color:var(--w15)}
+.it{font-style:italic}
+.ct{text-align:center}
+.cg{color:var(--gold)}.cc{color:var(--cyan)}.cr{color:var(--coral)}.cv{color:var(--magenta)}.cgreen{color:var(--green)}
+.gg{text-shadow:0 0 50px rgba(219,161,58,.35),0 0 100px rgba(219,161,58,.12)}
+.gc{text-shadow:0 0 50px rgba(56,214,210,.3)}
+.gr{text-shadow:0 0 50px rgba(232,80,91,.3)}
+
+/* Illustrations */
+.ill{display:flex;justify-content:center;pointer-events:none}
+.ill svg{display:block}
+
+/* Line draw animations */
+.draw{fill:none;stroke-linecap:round;stroke-dasharray:700;stroke-dashoffset:700;transition:stroke-dashoffset 2.2s cubic-bezier(.16,1,.3,1)}
+.S.on .draw{stroke-dashoffset:0}
+.S.on .draw.dd2{transition-delay:.5s}
+.fin{opacity:0;transition:opacity .5s ease}.S.on .fin{opacity:1;transition-delay:2s}
+.pdot{opacity:0;transition:all .5s cubic-bezier(.34,1.56,.64,1)}.S.on .pdot{opacity:1;transition-delay:1.6s}
+.pring{animation:none;opacity:0}.S.on .pring{animation:rp 3s ease-out 2s infinite}
+@keyframes rp{0%{r:5;opacity:.6}100%{r:22;opacity:0}}
+
+/* Brain drain */
+.S.on .bdrain{animation:bdrain 3.5s ease-in-out .4s infinite}
+@keyframes bdrain{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(8px);opacity:.55}}
+.drip{opacity:0}.S.on .drip{animation:drfall 2.2s ease-in infinite}
+.S.on .drip:nth-child(2){animation-delay:.8s}.S.on .drip:nth-child(3){animation-delay:1.5s}
+@keyframes drfall{0%{opacity:.7;transform:translateY(0)}100%{opacity:0;transform:translateY(45px)}}
+
+/* Phone waves */
+.pwv{opacity:0}.S.on .pwv{animation:pwp 3s ease-out infinite}
+.S.on .pwv:nth-child(2){animation-delay:1s}.S.on .pwv:nth-child(3){animation-delay:2s}
+@keyframes pwp{0%{opacity:.5;r:25}100%{opacity:0;r:75}}
+
+/* Bars */
+.bar-w{width:100%;max-width:600px;margin:0 auto}
+.bar-r{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.bar-t{font:500 .7rem var(--mono);letter-spacing:2px;text-transform:uppercase;width:80px;text-align:right;flex-shrink:0}
+.bar-bg{flex:1;height:44px;background:var(--w04);border-radius:4px;overflow:hidden;position:relative}
+.bar-f{height:100%;border-radius:4px;width:0;transition:width 2.5s cubic-bezier(.16,1,.3,1)}
+.S.on .bH{width:7%;transition-delay:.4s}
+.S.on .bA{width:94%;transition-delay:.7s}
+.bH{background:linear-gradient(90deg,var(--cyan),rgba(56,214,210,.15))}
+.bA{background:linear-gradient(90deg,var(--coral),rgba(232,80,91,.15))}
+.bv{position:absolute;right:14px;top:50%;transform:translateY(-50%);font:600 .85rem var(--mono);opacity:0;transition:opacity .4s ease}
+.S.on .bv{opacity:1;transition-delay:2.5s}
+
+/* Triad columns */
+.tri{display:flex;gap:0;justify-content:center;width:100%}
+.tc{flex:1;max-width:260px;text-align:center;padding:28px 14px}
+.tc+.tc{border-left:1px solid var(--w08)}
+.tn{font:300 2.8rem var(--head);line-height:1;color:var(--w08);margin-bottom:4px}
+.tt{font:600 1.2rem var(--head);margin-bottom:6px}
+.td{font:300 .78rem var(--body);color:var(--w30);line-height:1.55}
+
+/* 4-grid for qualities */
+.qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:700px;margin:0 auto}
+.qbox{padding:24px 20px;border-radius:10px;background:var(--w04);border-left:3px solid;text-align:left}
+.qbox-title{font:600 1.1rem var(--head);margin-bottom:6px}
+.qbox-desc{font:300 .82rem var(--body);color:var(--w50);line-height:1.55}
+
+/* 5-item list */
+.fivelist{max-width:700px;margin:0 auto}
+.fiveitem{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--w08)}
+.fiveitem:last-child{border-bottom:none}
+.fivenum{font:600 1rem var(--mono);color:var(--w15);width:28px;flex-shrink:0}
+.fivetxt{font:400 1.05rem var(--head)}
+
+/* Responsive */
+@media(max-width:768px){
+  .S{padding:36px 24px 80px}
+  .tri{flex-direction:column;align-items:center;gap:20px}
+  .tc+.tc{border-left:none;border-top:1px solid var(--w08);padding-top:20px}
+  .qgrid{grid-template-columns:1fr}
+  .bar-t{width:55px;font-size:.55rem}
+}
+</style>
+</head>
+<body>
+
+<div id="pr"></div>
+<div id="ct"><span id="ci">01</span> — <span id="cn">18</span></div>
+<div id="cue"></div>
+
+<div class="D" id="dk">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 0: TÍTULO -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="S on" data-i="0" data-cue="<b>APERTURA</b> — Entra con paso firme. No saludes. Mira directo al público.">
+  <div class="glow" style="width:450px;height:450px;background:var(--gold);top:-200px;right:-120px"></div>
+  <div class="glow" style="width:320px;height:320px;background:var(--cyan);bottom:-150px;left:-100px"></div>
+  <div class="I ct">
+    <div class="v tag cg" style="letter-spacing:6px">EDUFEST 2026 · WTC CIUDAD DE MÉXICO · 21 DE FEBRERO</div>
+    <div style="height:32px"></div>
+    <div class="vs d2 hero">Innovar hoy para un<br><span class="cg gg it">futuro desconocido</span></div>
+    <div style="height:28px"></div>
+    <div class="v d4" style="width:50px;height:2px;background:var(--gold);margin:0 auto"></div>
+    <div style="height:20px"></div>
+    <div class="v d5 mid" style="color:var(--w90);font-weight:400">Luciana García Agrícola</div>
+    <div style="height:6px"></div>
+    <div class="v d6 tag" style="color:var(--w30)">PSICOTERAPEUTA CORPORAL · PEDAGOGA · COMUNIDAD EDUCATIVA ELHILAR</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- BLOQUE 1: LA REALIDAD INCÓMODA -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 1: El shock -->
+<div class="S" data-i="1" data-cue="<b>00:10</b> — Serio, directo: 'Voy a empezar este viaje con una afirmación que a nadie le gusta escuchar, pero que es oficial...'">
+  <div class="glow" style="width:550px;height:550px;background:var(--coral);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I ct">
+    <div class="vs hero cr gr" style="max-width:900px;margin:0 auto;line-height:1.08">
+      "Nos estamos volviendo<br>menos inteligentes"
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: Flynn Chart -->
+<div class="S" data-i="2" data-cue="<b>00:30</b> — 'Durante décadas vivimos el Efecto Flynn, donde cada generación era más lista que la anterior. Pero eso se acabó.'">
+  <div class="glow" style="width:350px;height:350px;background:var(--cyan);top:-100px;left:-60px"></div>
+  <div class="I ct">
+    <div class="v big">Cada generación fue <span class="cc it">más inteligente</span>.</div>
+    <div style="height:6px"></div>
+    <div class="v d1 big" style="color:var(--w50)">Hasta que dejó de serlo.</div>
+    <div style="height:36px"></div>
+    <div class="v d2 ill">
+      <svg viewBox="0 0 650 200" fill="none" style="width:100%;max-width:650px">
+        <line x1="50" y1="170" x2="610" y2="170" stroke="rgba(255,255,255,.06)"/>
+        <line x1="50" y1="20" x2="50" y2="170" stroke="rgba(255,255,255,.06)"/>
+        <text x="50" y="188" text-anchor="middle" fill="rgba(255,255,255,.2)" font-family="'JetBrains Mono'" font-size="9">1940</text>
+        <text x="200" y="188" text-anchor="middle" fill="rgba(255,255,255,.2)" font-family="'JetBrains Mono'" font-size="9">1970</text>
+        <text x="350" y="188" text-anchor="middle" fill="rgba(255,255,255,.18)" font-family="'JetBrains Mono'" font-size="9">~1995</text>
+        <text x="500" y="188" text-anchor="middle" fill="rgba(255,255,255,.2)" font-family="'JetBrains Mono'" font-size="9">2010</text>
+        <text x="610" y="188" text-anchor="middle" fill="rgba(255,255,255,.2)" font-family="'JetBrains Mono'" font-size="9">2025</text>
+        <line x1="350" y1="18" x2="350" y2="170" stroke="rgba(255,255,255,.04)" stroke-dasharray="3,5"/>
+        <path d="M50,155 C120,145 200,115 280,75 Q320,52 350,42" class="draw" stroke="var(--cyan)" stroke-width="3"/>
+        <path d="M350,42 C380,48 440,75 500,105 Q560,132 610,145" class="draw dd2" stroke="var(--coral)" stroke-width="3"/>
+        <circle cx="350" cy="42" r="5" fill="var(--gold)" class="pdot"/>
+        <circle cx="350" cy="42" fill="none" stroke="var(--gold)" stroke-width="1" class="pring" r="5"/>
+        <text x="160" y="100" fill="rgba(56,214,210,.65)" font-family="'JetBrains Mono'" font-size="10" font-weight="600" letter-spacing="2" class="fin">↑ SUBÍA</text>
+        <text x="480" y="85" fill="rgba(232,80,91,.65)" font-family="'JetBrains Mono'" font-size="10" font-weight="600" letter-spacing="2" class="fin">BAJA ↓</text>
+      </svg>
+    </div>
+    <div style="height:14px"></div>
+    <div class="v d3 tag ct">EFECTO FLYNN INVERTIDO · DATOS OCDE</div>
+  </div>
+</div>
+
+<!-- SLIDE 3: Drenaje cerebral -->
+<div class="S" data-i="3" data-cue="<b>01:00</b> — Saca el celular del bolsillo y lo pone boca abajo. '¿Saben quién es el culpable? Esto... Es un drenaje cerebral constante.'">
+  <div class="glow" style="width:450px;height:450px;background:var(--coral);top:35%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I ct">
+    <div class="v ill">
+      <svg viewBox="0 0 280 300" fill="none" style="max-width:200px">
+        <g class="bdrain">
+          <path d="M140,55 C105,55 75,73 75,105 C75,123 84,135 84,147 C84,165 70,175 75,189 C80,203 98,213 118,213 L140,213" stroke="var(--coral)" stroke-width="2" fill="rgba(232,80,91,.08)" stroke-linecap="round"/>
+          <path d="M140,55 C175,55 205,73 205,105 C205,123 196,135 196,147 C196,165 210,175 205,189 C200,203 182,213 162,213 L140,213" stroke="var(--coral)" stroke-width="2" fill="rgba(232,80,91,.08)" stroke-linecap="round"/>
+          <path d="M120,78 C128,87 132,103 124,117" stroke="var(--coral)" stroke-width="1" opacity=".25" fill="none"/>
+          <path d="M160,78 C152,87 148,103 156,117" stroke="var(--coral)" stroke-width="1" opacity=".25" fill="none"/>
+          <line x1="140" y1="60" x2="140" y2="208" stroke="var(--coral)" stroke-width=".8" opacity=".1"/>
+        </g>
+        <circle cx="130" cy="220" r="3.5" fill="var(--coral)" class="drip"/>
+        <circle cx="148" cy="220" r="2.8" fill="var(--coral)" class="drip"/>
+        <circle cx="140" cy="220" r="2" fill="var(--coral)" class="drip"/>
+        <ellipse cx="140" cy="272" rx="42" ry="6" fill="rgba(232,80,91,.15)"/>
+      </svg>
+    </div>
+    <div style="height:20px"></div>
+    <div class="vs d2 hero cr gr">Drenaje cerebral</div>
+    <div style="height:14px"></div>
+    <div class="v d3 sm ct" style="max-width:500px;margin:0 auto">Tu celular —incluso apagado y boca abajo— reduce tu capacidad cognitiva. Tu cerebro gasta energía tratando de ignorarlo.</div>
+    <div style="height:10px"></div>
+    <div class="v d4 tag ct">WARD ET AL. · UNIVERSIDAD DE TEXAS</div>
+  </div>
+</div>
+
+<!-- SLIDE 4: Trabajos invisibles -->
+<div class="S" data-i="4" data-cue="<b>02:30</b> — 'Olviden eso. El reto es hoy. Los trabajos de dentro de 10 años, hoy ni siquiera existen ni nos los imaginamos.'">
+  <div class="glow" style="width:400px;height:400px;background:var(--gold);bottom:-120px;right:-80px"></div>
+  <div class="I ct">
+    <div class="v ill">
+      <svg viewBox="0 0 180 160" fill="none" style="max-width:130px">
+        <text x="90" y="115" text-anchor="middle" fill="rgba(219,161,58,.12)" font-family="'Playfair Display'" font-size="140" font-weight="800">?</text>
+        <circle cx="90" cy="80" r="50" stroke="var(--gold)" stroke-width=".5" fill="none" opacity=".15">
+          <animate attributeName="r" values="50;65;50" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".15;.05;.15" dur="4s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+    <div style="height:20px"></div>
+    <div class="vs d2 big" style="max-width:800px;margin:0 auto">
+      La mayoría de los trabajos de los próximos <span class="cg gg it">10 años</span>
+    </div>
+    <div style="height:10px"></div>
+    <div class="v d3 big" style="color:var(--w50)">hoy ni siquiera existen</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- BLOQUE 2: LA CARRERA CONTRA LA IA -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 5: AGI -->
+<div class="S" data-i="5" data-cue="<b>03:30</b> — Cambio de tono, más analítico. 'Mientras nosotros perdemos foco, en la otra esquina está la IA buscando la AGI...'">
+  <div class="glow" style="width:450px;height:450px;background:var(--magenta);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I ct">
+    <div class="v ill">
+      <svg viewBox="0 0 180 150" fill="none" style="max-width:140px">
+        <circle cx="90" cy="75" r="42" stroke="var(--magenta)" stroke-width="1" fill="none" opacity=".3"/>
+        <circle cx="90" cy="75" r="26" stroke="var(--magenta)" stroke-width="1.5" fill="rgba(196,75,187,.06)"/>
+        <circle cx="90" cy="75" r="9" fill="var(--magenta)" opacity=".5">
+          <animate attributeName="r" values="9;12;9" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle r="2" fill="var(--magenta)" opacity=".5">
+          <animateMotion dur="6s" repeatCount="indefinite" path="M90,33 A42,42 0 1,1 89.9,33"/>
+        </circle>
+      </svg>
+    </div>
+    <div style="height:20px"></div>
+    <div class="v d1 tag">EN LA OTRA ESQUINA</div>
+    <div style="height:14px"></div>
+    <div class="vs d2 hero cv">AGI</div>
+    <div style="height:14px"></div>
+    <div class="v d3 mid" style="color:var(--w70)">Inteligencia Artificial General</div>
+    <div style="height:20px"></div>
+    <div class="v d4 sm ct" style="max-width:550px;margin:0 auto">Máquinas diseñadas para superar al humano en <b style="color:var(--white)">toda</b> tarea cognitiva. No en una cosa. En todo.</div>
+  </div>
+</div>
+
+<!-- SLIDE 6: IQ Bars -->
+<div class="S" data-i="6" data-cue="<b>04:30</b> — '¿De qué sirve que un niño tenga un IQ de 120 si va a competir contra una máquina con un IQ de 5000 que no se cansa y no duerme?'">
+  <div class="glow" style="width:300px;height:300px;background:var(--cyan);top:-50px;left:-50px"></div>
+  <div class="glow" style="width:300px;height:300px;background:var(--coral);bottom:-50px;right:-50px"></div>
+  <div class="I">
+    <div class="v big ct" style="max-width:650px;margin:0 auto">¿De qué sirve un IQ de <span class="cc">120</span>?</div>
+    <div style="height:48px"></div>
+    <div class="bar-w v d2">
+      <div class="bar-r">
+        <div class="bar-t cc">Humano</div>
+        <div class="bar-bg"><div class="bar-f bH"></div><div class="bv cc">120</div></div>
+      </div>
+      <div class="bar-r">
+        <div class="bar-t cr">IA</div>
+        <div class="bar-bg"><div class="bar-f bA"></div><div class="bv cr">5,000+</div></div>
+      </div>
+    </div>
+    <div style="height:36px"></div>
+    <div class="v d3 sm ct">No se cansa. No duerme. No olvida.</div>
+  </div>
+</div>
+
+<!-- SLIDE 7: 5 cosas que la IA NO puede -->
+<div class="S" data-i="7" data-cue="<b>05:00</b> — 'Pero hay una pared con la que la IA se topa. La máquina puede simular una emoción, pero no puede sentirla...'">
+  <div class="glow" style="width:400px;height:400px;background:var(--cyan);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I">
+    <div class="v big ct">Lo que la IA <span class="cc gc it">nunca</span> podrá hacer</div>
+    <div style="height:36px"></div>
+    <div class="fivelist">
+      <div class="fiveitem vl d1">
+        <div class="fivenum">01</div>
+        <div class="fivetxt"><span class="cc">Empatía</span> <span class="cm">—</span> Sentir lo que otro siente, no simularlo</div>
+      </div>
+      <div class="fiveitem vl d2">
+        <div class="fivenum">02</div>
+        <div class="fivetxt"><span class="cg">Presencia física</span> <span class="cm">—</span> El contacto humano libera oxitocina</div>
+      </div>
+      <div class="fiveitem vl d3">
+        <div class="fivenum">03</div>
+        <div class="fivetxt"><span class="cv">Creatividad transformativa</span> <span class="cm">—</span> Ideas que rompen paradigmas</div>
+      </div>
+      <div class="fiveitem vl d4">
+        <div class="fivenum">04</div>
+        <div class="fivetxt"><span class="cr">Juicio ético</span> <span class="cm">—</span> Navegar dilemas morales sin manual</div>
+      </div>
+      <div class="fiveitem vl d5">
+        <div class="fivenum">05</div>
+        <div class="fivetxt"><span class="cgreen">Conexión social</span> <span class="cm">—</span> Construir confianza cara a cara</div>
+      </div>
+    </div>
+    <div style="height:14px"></div>
+    <div class="v d6 tag ct">MIT SLOAN · 2025</div>
+  </div>
+</div>
+
+<!-- SLIDE 8: Veredicto -->
+<div class="S" data-i="8" data-cue="<b>06:00</b> — 'Si queremos que nuestros hijos prosperen, tenemos que dejar de entrenarlos como robots de segunda...'">
+  <div class="glow" style="width:500px;height:500px;background:var(--gold);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I ct">
+    <div class="v mid" style="color:var(--w50)">La IA domina el mundo de los datos.</div>
+    <div style="height:40px"></div>
+    <div class="vs d2 hero cg gg">El humano<br>conecta.</div>
+    <div style="height:36px"></div>
+    <div class="v d4 sm ct" style="max-width:500px;margin:0 auto">El territorio de la confianza, el liderazgo, la creatividad y el vínculo permanece fuera del alcance de cualquier algoritmo.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- BLOQUE 3: LA FÓRMULA HUMANA -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 9: Robots → Humanos -->
+<div class="S" data-i="9" data-cue="<b>06:30</b> — 'Dejemos de entrenarlos como robots de segunda y empecemos a potenciarlos como humanos de primera.'">
+  <div class="glow" style="width:450px;height:450px;background:var(--gold);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I ct">
+    <div class="v big" style="color:var(--w50)">Dejemos de entrenarlos como</div>
+    <div style="height:6px"></div>
+    <div class="vs d2 hero cr gr">robots de segunda</div>
+    <div style="height:32px"></div>
+    <div class="v d3 big" style="color:var(--w50)">y empecemos a potenciarlos como</div>
+    <div style="height:6px"></div>
+    <div class="vs d4 hero cc gc">humanos de primera</div>
+  </div>
+</div>
+
+<!-- SLIDE 10: Tríada ALINEADA -->
+<div class="S" data-i="10" data-cue="<b>07:00</b> — Enumera con los dedos. '¿Cuál es la fórmula? Necesitamos una tríada: IQ Sólido, EQ Profundo, y La Voluntad.'">
+  <div class="glow" style="width:300px;height:300px;background:var(--cyan);top:-50px;left:5%"></div>
+  <div class="glow" style="width:280px;height:280px;background:var(--gold);bottom:-50px;right:5%"></div>
+  <div class="I ct">
+    <div class="v big">La fórmula para el <span class="cg gg it">futuro</span></div>
+    <div style="height:16px"></div>
+    <div class="v d1 sm ct" style="color:var(--w50)">No se suman. Se <span class="cg" style="font-weight:600">alinean</span>.</div>
+    <div style="height:36px"></div>
+    <div class="v d2 ill">
+      <svg viewBox="0 0 400 120" fill="none" style="width:100%;max-width:380px">
+        <!-- Tres círculos alineados con línea central -->
+        <line x1="60" y1="60" x2="340" y2="60" stroke="var(--gold)" stroke-width="2" stroke-dasharray="0" opacity=".4"/>
+        <!-- IQ -->
+        <circle cx="60" cy="60" r="38" stroke="var(--cyan)" stroke-width="2" fill="rgba(56,214,210,.08)"/>
+        <text x="60" y="55" text-anchor="middle" fill="var(--cyan)" font-family="'Playfair Display'" font-size="18" font-weight="700">IQ</text>
+        <text x="60" y="72" text-anchor="middle" fill="rgba(255,255,255,.4)" font-family="'DM Sans'" font-size="9">Pensar</text>
+        <!-- EQ -->
+        <circle cx="200" cy="60" r="38" stroke="var(--magenta)" stroke-width="2" fill="rgba(196,75,187,.08)"/>
+        <text x="200" y="55" text-anchor="middle" fill="var(--magenta)" font-family="'Playfair Display'" font-size="18" font-weight="700">EQ</text>
+        <text x="200" y="72" text-anchor="middle" fill="rgba(255,255,255,.4)" font-family="'DM Sans'" font-size="9">Sentir</text>
+        <!-- Voluntad -->
+        <circle cx="340" cy="60" r="38" stroke="var(--gold)" stroke-width="2" fill="rgba(219,161,58,.08)"/>
+        <text x="340" y="55" text-anchor="middle" fill="var(--gold)" font-family="'Playfair Display'" font-size="16" font-weight="700">Voluntad</text>
+        <text x="340" y="72" text-anchor="middle" fill="rgba(255,255,255,.4)" font-family="'DM Sans'" font-size="9">Hacer</text>
+        <!-- Flechas de conexión -->
+        <polygon points="105,60 118,55 118,65" fill="var(--gold)" opacity=".5"/>
+        <polygon points="245,60 258,55 258,65" fill="var(--gold)" opacity=".5"/>
+      </svg>
+    </div>
+    <div style="height:28px"></div>
+    <div class="v d3 mid ct" style="color:var(--w70);max-width:600px;margin:0 auto">Cuando los tres apuntan en la <span class="cg">misma dirección</span>,<br>el ser humano se vuelve imparable.</div>
+  </div>
+</div>
+
+<!-- SLIDE 11: Propósito -->
+<div class="S" data-i="11" data-cue="<b>07:30</b> — 'La Voluntad es la capacidad de hacer, de persistir. La IA tiene programación; el humano tiene empuje vital.'">
+  <div class="glow" style="width:450px;height:450px;background:var(--gold);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I ct">
+    <div class="v mid" style="color:var(--w50)">La IA tiene programación.</div>
+    <div style="height:36px"></div>
+    <div class="vs d2 hero cg gg">El humano tiene<br><em>propósito</em>.</div>
+    <div style="height:30px"></div>
+    <div class="v d4 sm ct" style="max-width:480px;margin:0 auto">El propósito no se programa. Nace de la experiencia, del dolor, del amor y de los sueños.</div>
+  </div>
+</div>
+
+<!-- SLIDE 12: Silicon Valley -->
+<div class="S" data-i="12" data-cue="<b>09:00</b> — Sonrisa leve. La ironía es tu mejor argumento. 'Los directivos de Google y Apple envían a sus hijos a escuelas sin pantallas.'">
+  <div class="glow" style="width:350px;height:350px;background:var(--gold);top:-60px;right:-50px"></div>
+  <div class="I">
+    <div class="v big" style="max-width:800px">Los que construyen el mundo digital<br><span class="cg gg it">protegen a sus hijos</span> de él</div>
+    <div style="height:40px"></div>
+    <div class="v d2 sm it" style="max-width:580px;border-left:2px solid var(--gold);padding-left:24px;line-height:1.8">
+      Escuelas donde juegan con lodo, tejen y trepan árboles.<br>Primero la imaginación y la humanidad. Después la tecnología.
+    </div>
+    <div style="height:24px"></div>
+    <div class="v d3 mid cr" style="font-weight:700;max-width:580px">Si metes la pantalla antes de tiempo,<br>matas la originalidad.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- BLOQUE 4: APRENDER A SER -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 13: SER -->
+<div class="S" data-i="13" data-cue="<b>11:00</b> — Tono íntimo. Baja la voz. 'Tan importante como la creatividad, es Aprender a SER. Aprender a SER un ser humano de calidad.'">
+  <div class="glow" style="width:550px;height:550px;background:var(--gold);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I ct">
+    <div class="v mid" style="color:var(--w30);font-weight:400">Tan importante como aprender a <span style="color:var(--w50)">saber</span></div>
+    <div style="height:20px"></div>
+    <div class="vs d2 hero cg gg" style="font-size:clamp(5rem,14vw,11rem);letter-spacing:-2px;line-height:.95"><em>SER</em></div>
+  </div>
+</div>
+
+<!-- SLIDE 14: RELACIONES - Harvard Study -->
+<div class="S" data-i="14" data-cue="<b>12:00</b> — 'La calidad de tus relaciones determina la calidad de tu vida. No el dinero. No la fama. Las relaciones.'">
+  <div class="glow" style="width:450px;height:450px;background:var(--gold);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I ct">
+    <div class="v tag" style="color:var(--w30)">85 AÑOS DE INVESTIGACIÓN · UNIVERSIDAD DE HARVARD</div>
+    <div style="height:24px"></div>
+    <div class="vs d2 hero cg gg">Relaciones</div>
+    <div style="height:20px"></div>
+    <div class="v d3 big" style="color:var(--w70)">La única fórmula probada<br>para una vida plena</div>
+    <div style="height:36px"></div>
+    <div class="v d4" style="max-width:620px;margin:0 auto;padding:24px 28px;background:var(--w04);border-radius:8px;border-left:3px solid var(--gold)">
+      <div class="sm it" style="color:var(--w70);line-height:1.7">"Las personas más satisfechas en sus relaciones a los 50 fueron las más sanas a los 80. No fue el colesterol. No fue el dinero. Fueron las relaciones."</div>
+      <div style="height:10px"></div>
+      <div class="tag" style="color:var(--gold)">— DR. ROBERT WALDINGER, DIRECTOR DEL ESTUDIO</div>
+    </div>
+    <div style="height:20px"></div>
+    <div class="v d5 sm ct" style="color:var(--w30)">"La soledad mata. Es tan poderosa como el tabaco."</div>
+  </div>
+</div>
+
+<!-- SLIDE 15: Llamado a Padres -->
+<div class="S" data-i="15" data-cue="<b>13:00</b> — 'Padres, busquen entornos que no apaguen la chispa interna de sus hijos, sino que le echen leña.'">
+  <div class="glow" style="width:400px;height:400px;background:var(--cyan);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I ct">
+    <div class="v tag cc">LLAMADO A</div>
+    <div style="height:14px"></div>
+    <div class="vs d2 hero cc gc">Padres</div>
+    <div style="height:36px"></div>
+    <div class="v d3 mid" style="color:var(--w70);max-width:650px;margin:0 auto;line-height:1.5">
+      Busquen entornos que <span class="cr" style="font-weight:600">no apaguen</span> la chispa interna de sus hijos, sino que <span class="cg" style="font-weight:600">le echen leña</span>.
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 16: Llamado a Educadores -->
+<div class="S" data-i="16" data-cue="<b>13:30</b> — 'Educadores, el sistema les pide números. Los niños les piden que los vean.'">
+  <div class="glow" style="width:400px;height:400px;background:var(--gold);top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+  <div class="I ct">
+    <div class="v tag cg">LLAMADO A</div>
+    <div style="height:14px"></div>
+    <div class="vs d2 hero cg gg">Educadores</div>
+    <div style="height:36px"></div>
+    <div class="v d3 mid" style="color:var(--w50);max-width:620px;margin:0 auto;line-height:1.5">
+      El sistema les pide <span style="color:var(--w70)">números</span>.
+    </div>
+    <div style="height:12px"></div>
+    <div class="v d4 big" style="color:var(--white);max-width:620px;margin:0 auto">
+      Los niños les piden que <span class="cc gc">los vean</span>.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- CIERRE -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<!-- SLIDE 17: Cierre -->
+<div class="S" data-i="17" data-cue="<b>14:00</b> — Con intensidad. 'Si invertimos en la humanidad de nuestros niños con la misma pasión... El futuro empieza hoy. Muchas gracias.' Sonrisa genuina.">
+  <div class="glow" style="width:400px;height:400px;background:var(--gold);top:-80px;right:-60px"></div>
+  <div class="glow" style="width:320px;height:320px;background:var(--cyan);bottom:-70px;left:-50px"></div>
+  <div class="I ct">
+    <div class="v mid it" style="color:var(--w50);max-width:680px;margin:0 auto">
+      Si invertimos en la humanidad de nuestros niños con la misma pasión con la que el mundo invierte en IA
+    </div>
+    <div style="height:28px"></div>
+    <div class="v d2 mid" style="color:var(--w90)">el futuro será de <span class="cc">oportunidad</span>, no de miedo</div>
+    <div style="height:48px"></div>
+    <div class="v d3" style="width:50px;height:2px;background:var(--gold);margin:0 auto"></div>
+    <div style="height:32px"></div>
+    <div class="vs d4 hero cg gg">El futuro empieza <em>hoy</em>.</div>
+    <div style="height:32px"></div>
+    <div class="v d5 tag ct" style="color:var(--w30);letter-spacing:5px">LUCIANA GARCÍA AGRÍCOLA · COMUNIDAD EDUCATIVA ELHILAR</div>
+  </div>
+</div>
+
+</div><!-- /dk -->
+
+<script>
+(()=>{
+  const SS=document.querySelectorAll('.S'),N=SS.length;
+  let c=0,lk=false;
+  const ci=document.getElementById('ci'),cn=document.getElementById('cn'),pr=document.getElementById('pr'),cue=document.getElementById('cue');
+  cn.textContent=String(N).padStart(2,'0');
+  function u(){ci.textContent=String(c+1).padStart(2,'0');pr.style.width=((c+1)/N*100)+'%';cue.innerHTML=SS[c].dataset.cue||''}
+  function go(i){if(lk||i===c||i<0||i>=N)return;lk=true;SS[c].classList.remove('on');requestAnimationFrame(()=>{SS[i].classList.add('on');c=i;u();setTimeout(()=>lk=false,350)})}
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown','Enter'].includes(e.key)){e.preventDefault();go(c+1)}
+    if(['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)){e.preventDefault();go(c-1)}
+    if(e.key==='Home'){e.preventDefault();go(0)}
+    if(e.key==='End'){e.preventDefault();go(N-1)}
+  });
+  document.addEventListener('click',e=>{e.clientX<innerWidth*.3?go(c-1):go(c+1)});
+  let tx,ty;
+  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;Math.abs(dx)>Math.abs(dy)?dx<-35?go(c+1):dx>35&&go(c-1):dy<-35?go(c+1):dy>35&&go(c-1)});
+  let wt;document.addEventListener('wheel',e=>{clearTimeout(wt);wt=setTimeout(()=>{e.deltaY>0?go(c+1):go(c-1)},80)},{passive:true});
+  u();
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,15 @@
 # edufest — Presentación EduFest 2026 (archivo histórico)
 
+## Identity (single source of truth — validar contra código, no memoria)
+- Canonical slug: edufest
+- GitHub: Catalizadora/Edufest
+- Lovable project: N/A
+- Supabase ref: N/A   ← single-file HTML estático, sin backend
+- Domain(s): N/A
+- Hosting: N/A (archivo histórico, presentación ya ejecutada)
+- Stack: single-file HTML/CSS/JS (presentación EduFest 2026)
+
+
 > "Innovar Hoy — Luciana García Agrícola · EduFest 2026". Presentación single-page completada.
 
 ## Qué es
